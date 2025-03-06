@@ -2,11 +2,9 @@ import java.util.Scanner;
 
 public class TripCostCalculator {
 
-	public static double calculateTripCost(double distance, double fuelEfficiency, double fuelPrice) {
-		if (fuelEfficiency == 0) {
-			return Double.POSITIVE_INFINITY;
-		}
-		return (distance / fuelEfficiency) * fuelPrice;
+	public static double calculateTripCost(double kilometers, double fuelPrice, double fuelConsumptionPer100Km) {
+		double fuelNeeded = (kilometers / 100) * fuelConsumptionPer100Km;
+		return fuelNeeded * fuelPrice;
 	}
 
 	public static void main(String[] args) {
