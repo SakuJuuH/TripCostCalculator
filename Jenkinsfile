@@ -4,7 +4,7 @@ pipeline {
 		maven 'Maven3'
     }
     environment {
-		DOCKERHUB_CREDENTIALS_ID = 'sakuheinonen'
+		DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
 		DOCKERHUB_REPO = 'sakuheinonen/week_7_inclass'
 		DOCKER_IMAGE_TAG = 'latest_v1'
     }
@@ -42,20 +42,21 @@ pipeline {
         
         stage('Build Docker Image') {
 			steps {
-				script {
+				// Build Docker image
+                        script {
 					docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
-				}
-			}
-		}
-		stage('Push Docker Image to Docker Hub') {
+                        }
+                    }
+                }
+                stage('Push Docker Image to Docker Hub') {
 			steps {
-				script {
+				// Push Docker image to Docker Hub
+                        script {
 					docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
 						docker.image("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}").push()
-					}
+                    }
 				}
-			}
-			
-		}
+            }
+        }
     }
 }
